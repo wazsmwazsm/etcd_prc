@@ -10,7 +10,7 @@ import (
 
 func main() {
 	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"172.16.129.153:2379", "172.16.129.154:22379", "172.16.129.156:32379"},
+		Endpoints:   []string{"172.16.129.153:2379", "172.16.129.154:2379", "172.16.129.156:2379"},
 		DialTimeout: 5 * time.Second,
 		Username:    "servicetree",
 		Password:    "servicetree",
