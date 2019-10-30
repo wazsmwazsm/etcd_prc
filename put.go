@@ -32,18 +32,9 @@ func main() {
 			log.Fatalf("bad cluster endpoints, which are not etcd servers: %v", err)
 		}
 	}
-	_, err = cli.Put(context.TODO(), "/app/servicetree/test", "{\"a\":\"b\"}")
+	putResp, err := cli.Put(context.TODO(), "/app/servicetree/test", "{\"a\":\"b\"}", clientv3.WithPrevKV())
 	if err != nil {
 		errHandler(err)
 	}
-
-	getResp, err := cli.Get(context.TODO(), "/app/servicetree/test")
-	// getResp, err := cli.Get(context.TODO(), "/app/servicetree/test", clientv3.WithPrefix())
-	if err != nil {
-		errHandler(err)
-	}
-	for _, ev := range getResp.Kvs {
-		log.Printf("%s : %s\n", ev.Key, ev.Value)
-	}
-
+	log.Printf("%s : %s\n", putResp.PrevKv.Key, putResp.PrevKv.Value)
 }
