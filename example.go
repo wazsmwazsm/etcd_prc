@@ -32,12 +32,13 @@ func main() {
 			log.Fatalf("bad cluster endpoints, which are not etcd servers: %v", err)
 		}
 	}
-	_, err = cli.Put(context.TODO(), "/app/servicetree/test", "hello my friend!")
+	_, err = cli.Put(context.TODO(), "/app/servicetree/test", "{\"a\":\"b\"}")
 	if err != nil {
 		errHandler(err)
 	}
 
 	getResp, err := cli.Get(context.TODO(), "/app/servicetree/test")
+	// getResp, err := cli.Get(context.TODO(), "/app/servicetree/test", clientv3.WithPrefix())
 	if err != nil {
 		errHandler(err)
 	}
